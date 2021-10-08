@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParxlabClientUI", "ParxlabClientUI\ParxlabClientUI.csproj", "{C6844AF0-9EC7-4F31-B18E-EDD36E704755}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6844AF0-9EC7-4F31-B18E-EDD36E704755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6844AF0-9EC7-4F31-B18E-EDD36E704755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6844AF0-9EC7-4F31-B18E-EDD36E704755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6844AF0-9EC7-4F31-B18E-EDD36E704755}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C930EA21-3018-4EFF-A340-C6C12090C414}
+	EndGlobalSection
+EndGlobal
