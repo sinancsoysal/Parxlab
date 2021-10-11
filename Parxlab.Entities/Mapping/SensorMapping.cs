@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Parxlab.Entities.Mapping
 {
-    class SensorMapping : BaseEntityTypeConfiguration<Sensor>
+    public class SensorMapping : BaseEntityTypeConfiguration<Sensor>
     {
         public override void Configure(EntityTypeBuilder<Sensor> builder)
         {

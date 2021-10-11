@@ -6,19 +6,8 @@ using System.Threading.Tasks;
 
 namespace Parxlab.Entities
 {
-    class Sensor : BaseEntity
+    public class Sensor : BaseEntity
     {
-        /*
-         * byte revType = Convert.ToByte(pk.type_ver >> 8);
-                string wpsdid = "";
-                string WDCid = "";
-                string RSSI = "";
-                byte carState = 0;
-                string voltage = "";
-                string hardVer = "";
-                string softVer = "";
-                string hbPeriod = "";
-         */
         public string WPSDId { get; set; }
         public string WDCId { get; set; }
         public int ParkId { get; set; }
