@@ -19,14 +19,14 @@ namespace Parxlab.Entities
                 string softVer = "";
                 string hbPeriod = "";
          */
-        public string wpsdId { get; set; }
-        public string wdcId { get; set; }
-        public int parkId { get; set; }
-        public string rssi { get; set; }
-        public byte carState { get; set; }
-        public string voltage { get; set; }
-        public string hardVer { get; set; }
-        public string softVer { get; set; }
-        public string hbPeriod { get; set; }
+        public string WPSDId { get; set; }
+        public string WDCId { get; set; }
+        public int ParkId { get; set; }
+        public string RSSI { get; set; }
+        public byte CarState { get; set; }
+        public string Voltage { get; set; }
+        public string HardVer { get; set; }
+        public string SoftVer { get; set; }
+        public string HBPeriod { get; set; }
     }
 }
