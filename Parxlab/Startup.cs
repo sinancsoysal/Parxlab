@@ -1,59 +1,56 @@
+using System.Data;
+using System.Threading.Tasks;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Parxlab.Data;
+using Parxlab.IocConfig.Middleware;
+using Parxlab.IocConfig.Service;
+using RepoDb;
 
 namespace Parxlab
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            WebHostEnvironment = webHostEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Parxlab", Version = "v1" });
-            });
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("ParxlabHangfireContext")));
+            services.AddHangfireServer();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ParxlabContext")));
+            SqlServerBootstrap.Initialize();
+            services.AddTransient<IDbConnection>(_ =>
+                new SqlConnection(Configuration.GetConnectionString("ParxlabContext")));
+            services.AddCustomServices(Configuration, WebHostEnvironment);
+            services.AddHostedService<SensorWorker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            app.AddCustomMiddleware();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Parxlab v1"));
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
+                Authorization = new[]
+                {
+                    new HangfireAuthorizationFilter()
+                }
             });
+            app.Run(async context => await Task.Run(() => context.Response.Redirect("/swagger")));
         }
     }
 }

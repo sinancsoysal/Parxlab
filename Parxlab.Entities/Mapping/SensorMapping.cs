@@ -15,6 +15,10 @@ namespace Parxlab.Entities.Mapping
             builder.Property(prop => prop.HardVer).IsRequired();
             builder.Property(prop => prop.SoftVer).IsRequired();
             builder.Property(prop => prop.HBPeriod).IsRequired();
+            builder
+                .HasOne(s => s.Park)
+                .WithOne(ad => ad.Sensor)
+                .HasForeignKey<Park>(ad => ad.SensorId);
             base.Configure(builder);
         }
     }

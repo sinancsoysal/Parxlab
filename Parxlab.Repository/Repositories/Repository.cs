@@ -32,7 +32,7 @@ namespace Parxlab.Repository.Repositories
             return _entities.AddAsync(entity);
         }
 
-        public virtual Task<object> AddAsync(TEntity entity)
+        public virtual Task<object> AddFast(TEntity entity)
         {
             entity.Id = Guid.NewGuid();
             if (entity.CreatedDate == DateTime.MinValue)
@@ -51,7 +51,7 @@ namespace Parxlab.Repository.Repositories
             return _entities.AddRangeAsync(entities);
         }
 
-        public virtual Task<int> AddRangeAsync(IEnumerable<TEntity> entities)
+        public virtual Task<int> AddRangeFast(IEnumerable<TEntity> entities)
         {
             return connection.InsertAllAsync(entities);
         }
@@ -61,7 +61,7 @@ namespace Parxlab.Repository.Repositories
             _entities.Update(entity);
         }
 
-        public virtual Task<int> UpdateAsync(TEntity entity)
+        public virtual Task<int> UpdateFast(TEntity entity)
         {
             entity.ModifiedDate = DateTime.Now;
             return connection.UpdateAsync(entity);
@@ -72,7 +72,7 @@ namespace Parxlab.Repository.Repositories
             _entities.UpdateRange(entities);
         }
 
-        public virtual Task<int> UpdateRangeAsync(IEnumerable<TEntity> entities)
+        public virtual Task<int> UpdateRangeFast(IEnumerable<TEntity> entities)
         {
             return connection.UpdateAllAsync(entities);
         }
@@ -82,7 +82,7 @@ namespace Parxlab.Repository.Repositories
             _entities.Remove(entity);
         }
 
-        public virtual Task<int> RemoveAsync(TEntity entity)
+        public virtual Task<int> RemoveFast(TEntity entity)
         {
             return connection.DeleteAsync(entity);
         }
@@ -92,7 +92,7 @@ namespace Parxlab.Repository.Repositories
             _entities.RemoveRange(entities);
         }
 
-        public virtual Task<int> RemoveRangeAsync(IEnumerable<TEntity> entities)
+        public virtual Task<int> RemoveRangeFast(IEnumerable<TEntity> entities)
         {
             return connection.DeleteAllAsync(entities);
         }
@@ -102,7 +102,7 @@ namespace Parxlab.Repository.Repositories
             return _entities.AsQueryable().CountAsync();
         }
 
-        public virtual Task<long> CountAsync()
+        public virtual Task<long> CountFast()
         {
             return connection.CountAllAsync<TEntity>();
         }
@@ -112,7 +112,7 @@ namespace Parxlab.Repository.Repositories
             return _entities.Where(predicate).FirstOrDefaultAsync();
         }
 
-        public virtual Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual Task<IEnumerable<TEntity>> GetFast(Expression<Func<TEntity, bool>> predicate)
         {
             return connection.QueryAsync(predicate);
         }
@@ -137,7 +137,7 @@ namespace Parxlab.Repository.Repositories
             return _entities.AsNoTracking().OrderByDescending(o => o.Id).ToListAsync();
         }
 
-        public virtual Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual Task<IEnumerable<TEntity>> GetAllFast()
         {
             return connection.QueryAllAsync<TEntity>();
         }
