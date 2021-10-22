@@ -36,7 +36,7 @@ namespace Parxlab
             services.AddTransient<IDbConnection>(_ =>
                 new SqlConnection(Configuration.GetConnectionString("ParxlabContext")));
             services.AddCustomServices(Configuration, WebHostEnvironment);
-            services.AddHostedService<SensorWorker>();
+            //services.AddHostedService<SensorWorker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +50,6 @@ namespace Parxlab
                     new HangfireAuthorizationFilter()
                 }
             });
-            app.Run(async context => await Task.Run(() => context.Response.Redirect("/swagger")));
         }
     }
 }

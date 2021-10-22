@@ -145,7 +145,6 @@ namespace Parxlab.IocConfig.Extensions
             
             app.UseOpenApi(); // serve documents (same as app.UseSwagger())
             app.UseSwaggerUi3(); // serve Swagger UI
-            app.UseReDoc(); // serve ReDoc UI
 
             app.UseHttpsRedirection();
             app.UseSerilogRequestLogging();
