@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Parxlab.Data;
-using Parxlab.Data.Dtos;
+using Parxlab.Data.Dtos.User;
 using Parxlab.Service.Contracts.Identity;
 
 namespace Parxlab.Service.Contracts.Impl.Identity
@@ -34,7 +34,7 @@ namespace Parxlab.Service.Contracts.Impl.Identity
         {
             using var serviceScope = _scopeFactory.CreateScope();
             using var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-            context?.Database.Migrate();
+            //context?.Database.Migrate();
         }
 
         /// <summary>

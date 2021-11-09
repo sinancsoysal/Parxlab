@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Parxlab.Common.Api;
 using Parxlab.Data;
-using Parxlab.Data.Dtos;
+using Parxlab.Data.Dtos.User;
 using Parxlab.Entities;
 using Parxlab.Entities.Identity;
 using Parxlab.Repository;
@@ -125,7 +125,7 @@ namespace Parxlab.Service.Contracts.Impl.Identity
         }
 
 
-        public async Task<ApiResult> UpdateProfile(Guid userId, string name, string image)
+        public async Task<ApiResult> UpdateProfile(Guid userId, UpdateUserDto updateUserDto)
         {
             var user = await userManager.FindByIdAsync(userId.ToString());
             if (user == null)
@@ -136,10 +136,33 @@ namespace Parxlab.Service.Contracts.Impl.Identity
                     Errors = new[] {"User does not exist"}
                 };
             }
-
-            user.Image = image;
+            
+            user.PhoneNumber = updateUserDto.PhoneNumber;
+            user.Image = updateUserDto.Image;
+            user.Email = updateUserDto.Email;
             await userManager.UpdateAsync(user);
             return new ApiResult() {IsSuccess = true};
+        }
+
+        public async Task<ApiResult> UpdateUserPassword(Guid userId, UpdateUserPasswordDto updateUserPasswordDto)
+        {
+            var user = await userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                return new ApiResult()
+                {
+                    StatusCode = ApiResultStatusCode.UnAuthorized,
+                    Errors = new[] { "User does not exist" }
+                };
+            }
+
+            // from https://stackoverflow.com/a/22534069
+            // first remove the password
+            await userManager.RemovePasswordAsync(user);
+            // then add the new password
+            await userManager.AddPasswordAsync(user, updateUserPasswordDto.Password);
+
+            return new ApiResult() { IsSuccess = true };
         }
 
         public async Task<ApiResult<UserDto>> GetUser(Guid userId)

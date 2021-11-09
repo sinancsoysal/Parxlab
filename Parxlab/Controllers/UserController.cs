@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Parxlab.Common.Api;
 using Parxlab.Common.Extensions;
 using Parxlab.Controllers.Base;
-using Parxlab.Data.Dtos;
+using Parxlab.Data.Dtos.User;
 using Parxlab.Entities;
 using Parxlab.Entities.Enums;
 using Parxlab.Repository;
@@ -36,10 +36,22 @@ namespace Parxlab.Controllers
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(ApiResult), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileDto profile)
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateUserDto profile)
         {
             var userId = User.GetUserId();
-            var res = await identityService.UpdateProfile(userId, profile.Name, profile.Image);
+            var res = await identityService.UpdateProfile(userId, profile);
+            if (res.IsSuccess)
+                return Ok(res);
+            return BadRequest(res);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ProducesResponseType(typeof(ApiResult), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> UpdateUserPassword([FromBody] UpdateUserPasswordDto updateUserPasswordDto)
+        {
+            var userId = User.GetUserId();
+            var res = await identityService.UpdateUserPassword(userId, updateUserPasswordDto);
             if (res.IsSuccess)
                 return Ok(res);
             return BadRequest(res);

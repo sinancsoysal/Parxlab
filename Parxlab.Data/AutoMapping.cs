@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using AutoMapper;
 using Parxlab.Data.Dtos;
+using Parxlab.Data.Dtos.User;
 using Parxlab.Data.Dtos.Reserved;
 using Parxlab.Entities;
 using Parxlab.Entities.Identity;
