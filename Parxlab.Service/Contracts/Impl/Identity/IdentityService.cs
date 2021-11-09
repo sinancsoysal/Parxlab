@@ -137,9 +137,9 @@ namespace Parxlab.Service.Contracts.Impl.Identity
                 };
             }
             
-            user.PhoneNumber = updateUserDto.PhoneNumber;
-            user.Image = updateUserDto.Image;
-            user.Email = updateUserDto.Email;
+            user.PhoneNumber = updateUserDto.PhoneNumber ?? user.PhoneNumber;
+            user.Image = updateUserDto.Image ?? user.Image;
+            user.Email = updateUserDto.Email ?? user.Email;
             await userManager.UpdateAsync(user);
             return new ApiResult() {IsSuccess = true};
         }
