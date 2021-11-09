@@ -15,13 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ParkingSystem">
-      <HintPath>..\..\..\..\Downloads\ParkingSystem.dll</HintPath>
-    </Reference>
+    <Folder Include="logs\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="logs\" />
+    <Reference Include="ParkingSystem">
+      <HintPath>..\..\..\..\Downloads\ParkingSystem.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Parxlab.Data.Dtos
+namespace Parxlab.Data.Dtos.User
 {
-   public class UserDto
+   public record UserDto
     {
         public Guid Id { get; set; }
         public string Username { get; set; }

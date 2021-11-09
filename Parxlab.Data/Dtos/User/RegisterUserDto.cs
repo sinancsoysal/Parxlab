@@ -1,4 +1,4 @@
-﻿namespace Parxlab.Data.Dtos
+﻿namespace Parxlab.Data.Dtos.User
 {
    public record RegisterUserDto
     {
