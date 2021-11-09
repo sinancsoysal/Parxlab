@@ -36,10 +36,10 @@ namespace Parxlab.Controllers
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(ApiResult), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateProfile([FromBody] UpdateUserDto profile)
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateUserDto updateUserDto)
         {
             var userId = User.GetUserId();
-            var res = await identityService.UpdateProfile(userId, profile);
+            var res = await identityService.UpdateProfile(userId, updateUserDto);
             if (res.IsSuccess)
                 return Ok(res);
             return BadRequest(res);
